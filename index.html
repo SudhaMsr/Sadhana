@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sadhana: the personality builder</title>
+<meta name="description" content="Sadhana is a habit app where every practice feeds a small creature called the Atman. Miss a day and it rests. Nothing is lost.">
+<meta name="theme-color" content="#f0ece3">
+<meta property="og:title" content="Sadhana: the personality builder">
+<meta property="og:description" content="Build the person, not the streak. A gentle habit app where every practice grows a small creature called the Atman.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f0ece3' stroke='%23121212' stroke-width='4'/%3E%3Cellipse cx='32' cy='38' rx='16' ry='18' fill='%23e8442a' stroke='%23121212' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&family=Inter:opsz,wght@14..32,500;14..32,600;14..32,800;14..32,900&family=Lora:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --paper:#f0ece3; --card:#fbf9f4; --ink:#121212; --red:#e8442a;
+  --sage:#8d9c87; --sand:#d8c9a8; --skin:#e9b996; --mute:#6c685e;
+  --shadow:5px 5px 0 rgba(18,18,18,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,sans-serif; color:var(--ink); background-color:var(--paper);
+  background-image:radial-gradient(rgba(18,18,18,.13) 1.1px,transparent 1.3px); background-size:7px 7px;
+  line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font:700 12.5px/1.4 'Cousine','Liberation Mono',monospace;color:var(--mute);letter-spacing:.03em}
+.punch{font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.045em;line-height:.9}
+.em{font-family:'Lora',Georgia,serif;font-style:italic;font-weight:500;color:var(--red);letter-spacing:-.01em}
+h1,h2,h3{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:-.035em;line-height:1.05}
+h2{font-size:clamp(2.1rem,5vw,3.6rem)}
+p.lead{font-family:'Lora',Georgia,serif;font-size:1.2rem;line-height:1.6;max-width:34rem}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;font:800 17px/1 'Inter',sans-serif;letter-spacing:-.02em;
+  padding:15px 24px;border:2.5px solid var(--ink);border-radius:999px;background:var(--card);color:var(--ink);
+  box-shadow:var(--shadow);cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 rgba(18,18,18,.2)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(18,18,18,.2)}
+.btn.red{background:var(--red);color:#fff}
+.btn.small{padding:11px 18px;font-size:15px}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:var(--shadow)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand{display:flex;align-items:center;gap:10px;font:900 26px/1 'Inter',sans-serif;letter-spacing:-.05em;text-decoration:none}
+.brand svg{width:30px;height:30px}
+.navlinks{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{font:700 13px 'Cousine',monospace;text-decoration:none;padding:8px 10px;border-radius:8px}
+.navlinks a:hover{background:rgba(18,18,18,.08)}
+.navlinks a.gh{border:2.5px solid var(--ink);background:var(--card);border-radius:999px;box-shadow:3px 3px 0 rgba(18,18,18,.16);padding:8px 14px}
+
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+.js .hl .w{display:inline-block;opacity:0;transform:translateY(26px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i)*.11s + .25s);margin-right:.22em}
+.js .hl.in .w{opacity:1;transform:none}
+.hl .w:last-child{margin-right:0}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:28px 0 72px}
+.hero h1{font-size:clamp(2.9rem,7.2vw,5.6rem);margin:14px 0 22px}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.stagewrap{position:relative;justify-self:center;width:min(460px,100%)}
+.stagewrap svg.atman{width:100%;height:auto;display:block;cursor:pointer;overflow:visible}
+.tapnote{position:absolute;left:-6px;top:6px;display:flex;align-items:flex-start;gap:4px}
+.tapnote svg{width:70px;height:70px;flex:none;margin-top:12px}
+.heroTitle{text-align:center;margin-top:6px}
+
+svg.atman .body{transform-box:view-box;transform-origin:160px 270px;animation:breathe 4.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.025,.982)}}
+svg.atman .rings{transform-origin:160px 180px;transition:opacity .6s,transform .6s}
+svg.atman .eyes-open ellipse{transform-box:fill-box;transform-origin:center;transition:transform .08s}
+svg.atman.blink .eyes-open ellipse{transform:scaleY(.1)}
+svg.atman .eyes-closed{display:none}
+svg.atman.resting .eyes-open{display:none}
+svg.atman.resting .eyes-closed{display:block}
+svg.atman.resting .body{animation-duration:7s}
+svg.atman.resting .rings{opacity:.2!important}
+svg.atman .moon{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s}
+svg.atman.resting .moon{opacity:1;transform:none}
+svg.atman .acc{opacity:0;transform:scale(.55);transform-box:fill-box;transform-origin:center;transition:opacity .4s,transform .45s cubic-bezier(.3,1.6,.5,1)}
+svg.atman .acc.on{opacity:1;transform:none}
+.orb{position:fixed;left:0;top:0;width:20px;height:20px;margin:-10px 0 0 -10px;border:2.5px solid var(--ink);border-radius:50%;z-index:60;pointer-events:none}
+
+section{position:relative;padding:72px 0}
+.sechead{margin-bottom:34px;max-width:46rem}
+.sechead .mono{display:block;margin-bottom:12px}
+.sechead p{margin-top:16px;font-family:'Lora',Georgia,serif;font-size:1.15rem}
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.panel{position:relative;background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:24px 26px 26px;overflow:hidden}
+.panel h3{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+.panel .big{font-size:clamp(5.5rem,13vw,9rem);margin:12px 0 4px;display:flex;align-items:baseline;gap:10px}
+.panel .big small{font:700 15px 'Cousine',monospace;text-transform:none;letter-spacing:.02em;color:var(--mute)}
+.panel .note{min-height:3.1em;font-size:.98rem}
+.stamp{position:absolute;right:18px;top:46px;border:8px solid var(--red);border-radius:16px;padding:6px 14px 2px;color:var(--red);background:rgba(240,236,227,.7);font-size:2.9rem;opacity:0;transform:rotate(-8deg) scale(2.4);pointer-events:none}
+.stamp.show{opacity:1;transform:rotate(-8deg) scale(1);transition:opacity .08s,transform .22s cubic-bezier(.3,1.5,.5,1)}
+.stamp.shake{animation:shake .35s linear}
+@keyframes shake{0%,100%{translate:0 0}20%{translate:-5px 2px}40%{translate:5px -2px}60%{translate:-3px 1px}80%{translate:3px 0}}
+.month{margin-top:26px;background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px 24px}
+.month .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.dots{display:grid;grid-template-columns:repeat(15,1fr);gap:10px}
+.dot{aspect-ratio:1;width:100%;max-width:44px;justify-self:center;border-radius:50%;border:3px solid var(--ink);background:var(--ink);cursor:pointer;padding:0;transition:transform .12s,background .15s,border-color .15s}
+.dot:hover{transform:scale(1.12)}
+.dot[data-s="1"]{background:transparent;border-color:var(--red);border-style:dashed}
+.dot[data-s="2"]{background:var(--sage)}
+.js .month .dot{opacity:0;transform:scale(.3)}
+.js .month.in .dot{opacity:1;transform:none;transition:opacity .3s,transform .4s cubic-bezier(.3,1.6,.5,1),background .15s,border-color .15s;transition-delay:calc(var(--n)*22ms)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:16px;height:16px;border-radius:50%;border:3px solid var(--ink);background:var(--ink)}
+.legend i.m{background:transparent;border:3px dashed var(--red)}
+.legend i.r{background:var(--sage)}
+
+.play{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:start}
+.sticky{position:sticky;top:20px}
+.atmanbox{background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:18px 18px 22px;text-align:center}
+.atmanbox svg{width:min(340px,100%);height:auto;display:block;margin:0 auto;overflow:visible}
+.meter{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0 4px}
+.meter b{font:900 28px/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--ink)}
+#title{font:600 1.5rem/1.15 'Inter',sans-serif;letter-spacing:-.03em;margin-top:6px}
+#status{min-height:3.2em;margin-top:10px;font-family:'Lora',Georgia,serif;font-style:italic;font-size:1.05rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.depth{display:inline-flex;border:2.5px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card);box-shadow:3px 3px 0 rgba(18,18,18,.16)}
+.depth button{font:800 14px 'Inter',sans-serif;border:0;background:transparent;padding:10px 16px;cursor:pointer;color:var(--ink)}
+.depth button+button{border-left:2.5px solid var(--ink)}
+.depth button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.card{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;background:var(--card);border:2.5px solid var(--ink);border-radius:14px;box-shadow:var(--shadow);font:inherit;color:inherit;text-align:left;cursor:pointer;transition:transform .12s,box-shadow .12s,background .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 rgba(18,18,18,.18)}
+.card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(18,18,18,.18)}
+.card[aria-checked="true"]{background:#fff4ea}
+.badge{width:42px;height:42px;border-radius:10px;background:var(--ink);display:grid;place-items:center;flex:none}
+.card .t{font:800 21px/1.1 'Inter',sans-serif;letter-spacing:-.04em}
+.card .s{font:700 11.5px/1.3 'Cousine',monospace;color:var(--mute);margin-top:5px;letter-spacing:.02em;display:flex;align-items:center;gap:7px}
+.card .s i{display:inline-block;width:11px;height:11px;border-radius:50%;border:2px solid var(--ink)}
+.ck{margin-left:auto;width:30px;height:30px;flex:none;border:2.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--card);transition:background .2s}
+.ck svg{width:18px;height:18px;opacity:0;transform:scale(.3);transition:opacity .15s,transform .3s cubic-bezier(.3,1.7,.5,1)}
+.card[aria-checked="true"] .ck{background:var(--red);border-color:var(--red)}
+.card[aria-checked="true"] .ck svg{opacity:1;transform:none}
+.list{display:grid;gap:14px;margin:18px 0 0}
+.radarbox{margin-top:22px;background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:16px 16px 10px;display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:12px;align-items:center}
+.radarbox svg{width:100%;height:auto;display:block;overflow:visible}
+.radarbox ul{list-style:none;display:grid;gap:8px}
+.radarbox li{display:flex;align-items:center;gap:9px;font:700 13px 'Cousine',monospace}
+.radarbox li i{width:14px;height:14px;border-radius:50%;border:2.5px solid var(--ink);flex:none}
+.scroll{margin-top:22px;background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:20px 22px;min-height:7.5rem}
+.scroll .txt{font-family:'Lora',Georgia,serif;font-style:italic;font-size:1.22rem;line-height:1.55;margin:10px 0}
+
+.pillars{display:grid;gap:16px}
+.pillar{display:grid;grid-template-columns:auto 1fr 1.1fr;gap:20px;align-items:center;background:var(--card);border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);padding:18px 22px;transition:transform .15s,box-shadow .15s}
+.pillar:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 rgba(18,18,18,.18)}
+.pbadge{width:64px;height:64px;border-radius:16px;border:2.5px solid var(--ink);display:grid;place-items:center}
+.pillar h3{font-size:1.7rem;font-weight:800;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pillar h3 span{font-family:'Lora',Georgia,serif;font-style:italic;font-weight:500;font-size:1.15rem;color:var(--mute);letter-spacing:0}
+.pillar .ex{margin-top:6px}
+.pillar .shows b{font-weight:800}
+
+.steps{display:grid;gap:16px;max-width:640px}
+.step{display:flex;align-items:center;gap:16px;background:var(--card);border:2.5px solid var(--ink);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px}
+.step .t{font:800 24px/1.1 'Inter',sans-serif;letter-spacing:-.045em}
+.step .s{font:700 12px 'Cousine',monospace;color:var(--mute);margin-top:6px}
+.step .tick{margin-left:auto;width:32px;height:32px;flex:none;transform:scale(0);transition:transform .4s cubic-bezier(.3,1.7,.5,1);transition-delay:calc(var(--d,0s) + .45s)}
+.step.in .tick,.no-anim .step .tick{transform:scale(1)}
+.facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.facts span{border:2.5px solid var(--ink);border-radius:999px;padding:8px 14px;background:var(--card);font:700 13px 'Cousine',monospace}
+
+.follow{background:var(--ink);color:var(--paper);border-radius:28px;padding:56px 40px 60px;position:relative;overflow:hidden;background-image:radial-gradient(rgba(240,236,227,.12) 1.1px,transparent 1.3px);background-size:7px 7px}
+.follow .mono{color:#b9b4a6}
+.follow h2{font-size:clamp(2.6rem,7vw,5.2rem);margin:12px 0 18px;max-width:14ch}
+.follow p{font-family:'Lora',Georgia,serif;font-size:1.2rem;max-width:34rem}
+.follow .btn.red{margin-top:28px;font-size:20px;padding:18px 30px;border-color:var(--paper)}
+.cursor{position:absolute;width:44px;height:52px;left:0;top:0;opacity:0;pointer-events:none;z-index:3}
+footer{padding:44px 0 56px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+#wipe{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:80}
+#wipe .p,#wipe .k{position:absolute;top:-10%;bottom:-10%;left:0;transform:translateX(-220vw) skewX(-8deg)}
+#wipe .p{width:130vw;background:var(--red)}
+#wipe .k{width:16vw;background:var(--ink)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;padding-bottom:48px}
+  .stagewrap{order:-1;width:min(340px,86%)}
+  .play,.versus{grid-template-columns:1fr}
+  .sticky{position:static}
+  .pillar{grid-template-columns:auto 1fr}
+  .pillar .shows{grid-column:1/-1}
+  .dots{grid-template-columns:repeat(10,1fr)}
+  .radarbox{grid-template-columns:1fr}
+  .navlinks a:not(.gh){display:none}
+  .follow{padding:40px 24px 44px}
+  .tapnote{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv,.js .hl .w,.js .month .dot{opacity:1!important;transform:none!important}
+  .step .tick{transform:scale(1)!important}
+}
+</style>
+</head>
+<body>
+<div id="wipe" aria-hidden="true"><div class="p"></div><div class="k"></div></div>
+
+<div class="wrap">
+<nav aria-label="Main">
+  <a class="brand" href="#top" data-wipe>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 16c-9-6-6-13 2-13 2 9 0 13-2 13z" fill="#8d9c87" stroke="#121212" stroke-width="3.5" stroke-linejoin="round"/><path d="M32 14c-11 0-20 11-20 25 0 11 8 20 20 20s20-9 20-20c0-14-9-25-20-25z" fill="#e8442a" stroke="#121212" stroke-width="4" stroke-linejoin="round"/><circle cx="25" cy="38" r="3.4" fill="#121212"/><circle cx="39" cy="38" r="3.4" fill="#121212"/></svg>
+    Sadhana
+  </a>
+  <div class="navlinks">
+    <a href="#try" data-wipe>// try a day</a>
+    <a href="#pillars" data-wipe>// pillars</a>
+    <a href="#how" data-wipe>// how it works</a>
+    <a class="gh" href="https://github.com/SudhaMsr/Sadhana" rel="noopener">GitHub</a>
+  </div>
+</nav>
+</div>
+
+<main id="top">
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="mono rv">// the personality builder</div>
+      <h1 class="hl rv" id="h1"><span class="w" style="--i:0">Build</span><span class="w" style="--i:1">the</span><span class="w em" style="--i:2">person,</span><span class="w" style="--i:3">not</span><span class="w" style="--i:4">the</span><span class="w" style="--i:5">streak.</span></h1>
+      <p class="lead rv" style="--d:.5s">Sadhana is a habit app where every practice feeds a small creature called the Atman. Miss a day and it rests. Nothing is lost.</p>
+      <div class="cta rv" style="--d:.65s">
+        <a class="btn red" href="#try" data-wipe>Try a day</a>
+        <a class="btn" href="#how" data-wipe>How it works</a>
+      </div>
+    </div>
+    <div class="stagewrap rv" style="--d:.3s">
+      <div class="tapnote mono" aria-hidden="true">// tap me
+        <svg viewBox="0 0 70 70"><path d="M8 12 C14 48, 34 58, 58 54" fill="none" stroke="#121212" stroke-width="3.5" stroke-linecap="round"/><path d="M46 42 L60 54 L42 62" fill="none" stroke="#121212" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <svg class="atman" id="heroAtman" role="img" aria-label="The Atman, a small glowing seed-shaped creature. Tap it to change how it looks."></svg>
+      <div class="mono heroTitle" id="heroTitle" aria-live="polite">// today: the mindful scholar</div>
+    </div>
+  </header>
+</div>
+
+<section id="streaks">
+<div class="wrap">
+  <div class="sechead rv">
+    <span class="mono">// the problem with streaks</span>
+    <h2>One missed day shouldn't erase <span class="em">a month.</span></h2>
+    <p>Most habit apps reset your streak to zero when you slip. People feel they've failed, and they quit. Sadhana scores consistency instead. Tap any day below to miss it and compare.</p>
+  </div>
+
+  <div class="versus">
+    <div class="panel rv">
+      <h3>A streak app</h3>
+      <div class="big punch"><span id="streakNum">30</span><small>days in a row</small></div>
+      <p class="note" id="streakNote">Perfect so far. Tap a day below to miss it.</p>
+      <div class="stamp punch" id="stamp" aria-hidden="true">Reset</div>
+    </div>
+    <div class="panel rv" style="--d:.1s">
+      <h3>Sadhana</h3>
+      <div class="big punch"><span id="consNum">100</span><small>% consistency</small></div>
+      <p class="note" id="consNote">Last 30 days. Rest Days don't count against you.</p>
+    </div>
+  </div>
+
+  <div class="month rv" id="month">
+    <div class="top">
+      <span class="mono">// the last 30 days. tap a day: done, missed, Rest Day</span>
+      <span class="mono" id="restUsed">Rest Days used: 0 of 3</span>
+    </div>
+    <div class="dots" id="dots" role="group" aria-label="Last 30 days"></div>
+    <div class="legend mono"><span><i></i>done</span><span><i class="m"></i>missed</span><span><i class="r"></i>Rest Day (not counted)</span></div>
+  </div>
+</div>
+</section>
+
+<section id="try">
+<div class="wrap">
+  <div class="sechead rv">
+    <span class="mono">// try a day</span>
+    <h2>Tick a practice. <span class="em">Feed your Atman.</span></h2>
+    <p>Each practice belongs to a pillar. Finish one and a spark of light flies into the Atman, which slowly takes on that part of your character. Low energy? Pick Mini or Micro.</p>
+  </div>
+
+  <div class="play">
+    <div class="sticky rv">
+      <div class="atmanbox">
+        <svg class="atman" id="playAtman" role="img" aria-label="Your Atman"></svg>
+        <div class="meter mono"><span>glow level <b id="glow">40</b></span><span>practices <b id="count">0</b>/5</span></div>
+        <div id="title">An unformed seed</div>
+        <p id="status" aria-live="polite">Your Atman is waiting for its first spark.</p>
+        <div class="row">
+          <button class="btn small" id="skip" type="button">Skip today</button>
+          <button class="btn small" id="reset" type="button">Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="row" style="justify-content:flex-start;margin:0 0 4px;align-items:center">
+        <span class="mono">// today's energy</span>
+        <div class="depth" role="group" aria-label="Practice depth" id="depth">
+          <button type="button" data-d="0" aria-pressed="true">Full</button>
+          <button type="button" data-d="1" aria-pressed="false">Mini</button>
+          <button type="button" data-d="2" aria-pressed="false">Micro</button>
+        </div>
+      </div>
+      <div class="list" id="list" role="group" aria-label="Today's practices"></div>
+
+      <div class="radarbox rv">
+        <svg id="radar" viewBox="0 0 300 290" role="img" aria-label="Your pillar balance as a five-sided chart"></svg>
+        <ul id="legend"></ul>
+      </div>
+
+      <div class="scroll rv">
+        <span class="mono">// the sunday mirror</span>
+        <p class="txt" id="scrollTxt" aria-live="polite">Tick a few practices, then read what your week says about you.</p>
+        <div class="row" style="justify-content:flex-start;margin-top:8px"><button class="btn red small" id="mirror" type="button" disabled>Read my Sunday Mirror</button></div>
+        <p class="mono" style="margin-top:12px">// demo text, written by simple rules. The app will write a fresh scroll each week with an AI model.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="pillars">
+<div class="wrap">
+  <div class="sechead rv">
+    <span class="mono">// five pillars</span>
+    <h2>Every habit builds <span class="em">a part of you.</span></h2>
+    <p>You link each practice to one pillar. Over time the pillars shape the Atman's look, its title, and the weekly scroll about who you've been.</p>
+  </div>
+  <div class="pillars" id="pillarList"></div>
+</div>
+</section>
+
+<section id="how">
+<div class="wrap">
+  <div class="sechead rv">
+    <span class="mono">// how it works</span>
+    <h2>Two seconds a day. <span class="em">One scroll a week.</span></h2>
+  </div>
+  <div class="steps" id="steps">
+    <div class="step rv" style="--d:0s"><div class="badge"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#fbf9f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="20" height="20" rx="3"/><path d="M11 12h10M11 16h10M11 20h6"/></svg></div><div><div class="t">Choose 3 to 5 practices</div><div class="s">// link each one to a pillar</div></div><svg class="tick" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8442a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="step rv" style="--d:.15s"><div class="badge"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#fbf9f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11"/><path d="M11 16.5l3.5 3.5 7-8"/></svg></div><div><div class="t">Check in with one tap</div><div class="s">// full, mini or micro, your call</div></div><svg class="tick" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8442a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="step rv" style="--d:.3s"><div class="badge"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#fbf9f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5h14a3 3 0 0 1 3 3v19H11a3 3 0 0 1-3-3z"/><path d="M12 11h9M12 15h9M12 19h5"/></svg></div><div><div class="t">Read your Sunday scroll</div><div class="s">// who you were this week</div></div><svg class="tick" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8442a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="facts rv">
+    <span>works offline</span><span>no account to start</span><span>a missed day is never punished</span><span>three screens, nothing more</span>
+  </div>
+</div>
+</section>
+
+<section id="follow">
+<div class="wrap">
+  <div class="follow rv" id="followBox">
+    <span class="mono">// where things stand</span>
+    <h2>Sadhana is in <span class="em">design.</span></h2>
+    <p>The app is being planned in the open: a React Native build with offline-first storage. Follow the repository to see it grow.</p>
+    <a class="btn red" id="followBtn" href="https://github.com/SudhaMsr/Sadhana" rel="noopener">Follow the build</a>
+    <svg class="cursor" id="cursor" viewBox="0 0 44 52" aria-hidden="true"><path d="M6 4 L6 38 L15 30 L21 44 L28 41 L22 28 L34 28 Z" fill="#fff" stroke="#121212" stroke-width="3" stroke-linejoin="round"/></svg>
+  </div>
+</div>
+</section>
+</main>
+
+<div class="wrap">
+<footer>
+  <span class="mono">// sadhana. the personality builder.</span>
+  <span class="mono">&copy; 2026 Sadhana</span>
+</footer>
+</div>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eo = x => 1 - Math.pow(1 - clamp(x), 3);
+const eio = x => { x = clamp(x); return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2; };
+const NS = 'http://www.w3.org/2000/svg';
+
+function tween(ms, fn, done) {
+  if (reduce) { fn(1); if (done) done(); return; }
+  const s = performance.now();
+  (function f(n) { const k = clamp((n - s) / ms); fn(k); if (k < 1) requestAnimationFrame(f); else if (done) done(); })(s);
+}
+
+/* reveal on scroll */
+const hasIO = 'IntersectionObserver' in window;
+if (reduce || !hasIO) {
+  $$('.rv, .hl, .month, .step').forEach(e => e.classList.add('in'));
+  document.documentElement.classList.add('no-anim');
+}
+function observe(sel, thr) {
+  if (reduce || !hasIO) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: thr || .15, rootMargin: '0px 0px -6% 0px' });
+  $$(sel).forEach(e => io.observe(e));
+}
+
+/* wipe transition for anchor links */
+const wipeEls = $$('#wipe .p, #wipe .k');
+function wipeTo(target) {
+  const go = () => { target.scrollIntoView({ behavior: 'auto', block: 'start' }); history.replaceState(null, '', '#' + target.id); };
+  if (reduce) { go(); return; }
+  let jumped = false;
+  tween(700, k => {
+    const u = eio(k), x = (-1.6 + 3.0 * u) * innerWidth;
+    wipeEls[0].style.transform = `translateX(${x}px) skewX(-8deg)`;
+    wipeEls[1].style.transform = `translateX(${x - innerWidth * .17}px) skewX(-8deg)`;
+    if (k >= .5 && !jumped) { jumped = true; go(); }
+  }, () => wipeEls.forEach(e => e.style.transform = 'translateX(-220vw) skewX(-8deg)'));
+}
+$$('a[data-wipe]').forEach(a => a.addEventListener('click', ev => {
+  const t = document.getElementById(a.getAttribute('href').slice(1));
+  if (!t) return; ev.preventDefault(); wipeTo(t);
+}));
+
+/* pillars */
+const PILLARS = [
+  { k: 'sattva', n: 'Sattva', sub: 'Mindfulness and calm', color: '#8d9c87', adj: 'Mindful', noun: 'Dreamer', quality: 'calm', ex: 'reading, meditating, journaling', shows: 'a floating halo and a calm, sleepy aura',
+    icon: '<path d="M16 26C9 24 6 18 7 12c4 1 7 4 9 8 2-4 5-7 9-8 1 6-2 12-9 14z"/><path d="M16 26V14"/>' },
+  { k: 'rajas', n: 'Rajas', sub: 'Vitality and energy', color: '#e8442a', adj: 'Vibrant', noun: 'Mover', quality: 'energetic', ex: 'working out, running, moving every day', shows: 'little wings and active animations',
+    icon: '<path d="M18 4L8 18h7l-2 10 11-15h-7z"/>' },
+  { k: 'buddhi', n: 'Buddhi', sub: 'Intellect and skill', color: '#d8c9a8', adj: 'Thoughtful', noun: 'Scholar', quality: 'sharp', ex: 'coding, studying a language, practising an instrument', shows: 'round glasses and a studious look',
+    icon: '<path d="M16 8C12 6 8 6 5 7v17c3-1 7-1 11 1 4-2 8-2 11-1V7c-3-1-7-1-11 1zM16 8v17"/>' },
+  { k: 'bhakti', n: 'Bhakti', sub: 'Heart and connection', color: '#e9b996', adj: 'Warm', noun: 'Connector', quality: 'warm', ex: 'calling a friend, volunteering, gratitude', shows: 'a warm blush and small hearts drifting nearby',
+    icon: '<path d="M16 27C6 20 5 12 10 9c3-2 5 0 6 2 1-2 3-4 6-2 5 3 4 11-6 18z"/>' },
+  { k: 'dharma', n: 'Dharma', sub: 'Order and discipline', color: '#121212', adj: 'Steady', noun: 'Builder', quality: 'steady', ex: 'making the bed, cleaning, waking early', shows: 'a tidy little stack of books beneath it',
+    icon: '<rect x="6" y="6" width="20" height="20" rx="3"/><path d="M11 16l4 4 7-8"/>' }
+];
+const ico = (p, c, s) => `<svg width="${s}" height="${s}" viewBox="0 0 32 32" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const iconCol = p => p.k === 'dharma' ? '#fbf9f4' : '#121212';
+
+$('#pillarList').innerHTML = PILLARS.map((p, i) => `
+  <article class="pillar rv" style="--d:${i * .06}s">
+    <div class="pbadge" style="background:${p.color}">${ico(p.icon, iconCol(p), 34)}</div>
+    <div><h3>${p.n}<span>${p.sub}</span></h3><div class="mono ex">// ${p.ex}</div></div>
+    <p class="shows">Your Atman shows it with <b>${p.shows}</b>.</p>
+  </article>`).join('');
+
+/* the Atman */
+let atmanCount = 0;
+function mkAtman(svg) {
+  const id = 'at' + (++atmanCount);
+  svg.setAttribute('viewBox', '0 0 320 340');
+  svg.innerHTML = `
+  <defs><pattern id="${id}d" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.15" fill="#121212" fill-opacity=".42"/></pattern></defs>
+  <g class="rings"><circle cx="160" cy="180" r="150" fill="none" stroke="#e8442a" stroke-width="3"/><circle cx="160" cy="180" r="128" fill="none" stroke="#e8442a" stroke-width="1.5" stroke-dasharray="3 9" stroke-linecap="round"/></g>
+  <ellipse cx="160" cy="288" rx="78" ry="9" fill="#121212" fill-opacity=".14"/>
+  <g class="burst" opacity="0"></g>
+  <g class="hop"><g class="body">
+    <path d="M160 84C218 84 250 130 250 184C250 238 214 270 160 270C106 270 70 238 70 184C70 130 102 84 160 84Z" fill="#fbf9f4" stroke="#121212" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M214 100C240 124 252 160 250 190C248 236 214 266 168 270C206 250 226 220 226 184C226 148 222 122 214 100Z" fill="url(#${id}d)"/>
+    <path d="M160 86C146 66 150 48 170 42C174 62 170 78 160 86Z" fill="#8d9c87" stroke="#121212" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="108" cy="200" rx="12" ry="7.5" fill="#e8442a" fill-opacity=".24"/><ellipse cx="212" cy="200" rx="12" ry="7.5" fill="#e8442a" fill-opacity=".24"/>
+    <g class="eyes-open"><ellipse cx="132" cy="178" rx="5.5" ry="7.5" fill="#121212"/><ellipse cx="188" cy="178" rx="5.5" ry="7.5" fill="#121212"/></g>
+    <g class="eyes-closed" fill="none" stroke="#121212" stroke-width="4.5" stroke-linecap="round"><path d="M121 180Q132 189 143 180"/><path d="M177 180Q188 189 199 180"/></g>
+    <path d="M146 204Q160 217 174 204" fill="none" stroke="#121212" stroke-width="4.5" stroke-linecap="round"/>
+    <g class="acc acc-sattva"><ellipse cx="160" cy="30" rx="40" ry="10" fill="#8d9c87" fill-opacity=".4" stroke="#121212" stroke-width="3"/><path d="M96 66v14M89 73h14M226 96v12M220 102h12" stroke="#121212" stroke-width="3" stroke-linecap="round"/></g>
+    <g class="acc acc-rajas"><path d="M72 190C34 150 22 198 52 224C62 214 70 206 72 190Z" fill="#e8442a" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><path d="M248 190C286 150 298 198 268 224C258 214 250 206 248 190Z" fill="#e8442a" stroke="#121212" stroke-width="3" stroke-linejoin="round"/></g>
+    <g class="acc acc-buddhi" fill="none" stroke="#121212" stroke-width="4.5" stroke-linecap="round"><circle cx="132" cy="178" r="22"/><circle cx="188" cy="178" r="22"/><path d="M154 176Q160 171 166 176"/><path d="M110 174L98 169"/><path d="M210 174L222 169"/></g>
+    <g class="acc acc-bhakti"><path d="M64 110c-6-8-18-2-10 8l10 10 10-10c8-10-4-16-10-8z" fill="#e9b996" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/><path d="M258 130c-4-6-13-2-8 6l8 8 8-8c6-8-3-12-8-6z" fill="#e9b996" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/></g>
+    <g class="acc acc-dharma"><rect x="112" y="276" width="96" height="12" rx="3" fill="#d8c9a8" stroke="#121212" stroke-width="3"/><rect x="122" y="264" width="76" height="12" rx="3" fill="#fbf9f4" stroke="#121212" stroke-width="3"/></g>
+  </g></g>
+  <g class="moon"><path d="M262 56a26 26 0 1 0 24 40a21 21 0 1 1-24-40z" fill="#d8c9a8" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><text x="226" y="62" font-family="Cousine,monospace" font-weight="700" font-size="22" fill="#121212">z</text><text x="238" y="38" font-family="Cousine,monospace" font-weight="700" font-size="28" fill="#121212">Z</text></g>`;
+  const q = s => svg.querySelector(s);
+  const rings = q('.rings'), burst = q('.burst'), hop = q('.hop');
+  for (let i = 0; i < 22; i++) {
+    const a = i / 22 * Math.PI * 2, r0 = 160 + (i % 2) * 12, r1 = 205 - (i % 3) * 14;
+    const l = document.createElementNS(NS, 'line');
+    l.setAttribute('x1', 160 + Math.cos(a) * r0); l.setAttribute('y1', 180 + Math.sin(a) * r0);
+    l.setAttribute('x2', 160 + Math.cos(a) * r1); l.setAttribute('y2', 180 + Math.sin(a) * r1);
+    l.setAttribute('stroke', '#e8442a'); l.setAttribute('stroke-width', i % 2 ? 3 : 5); l.setAttribute('stroke-linecap', 'round');
+    burst.appendChild(l);
+  }
+  setInterval(() => {
+    if (svg.classList.contains('resting') || reduce) return;
+    svg.classList.add('blink'); setTimeout(() => svg.classList.remove('blink'), 130);
+  }, 3300);
+  const api = {
+    setGlow(g) { rings.style.opacity = (.25 + g / 100 * .75).toFixed(2); rings.style.transform = `scale(${(.9 + g / 100 * .12).toFixed(3)})`; },
+    rest(on) { svg.classList.toggle('resting', !!on); },
+    accOnly(keys) { PILLARS.forEach(p => { const el = q('.acc-' + p.k); if (el) el.classList.toggle('on', keys.includes(p.k)); }); },
+    hop() {
+      if (reduce) return;
+      hop.animate([
+        { transform: 'translateY(0) scale(1,1)' },
+        { transform: 'translateY(-26px) scale(.97,1.04)', offset: .4 },
+        { transform: 'translateY(0) scale(1.04,.95)', offset: .75 },
+        { transform: 'translateY(0) scale(1,1)' }
+      ], { duration: 600, easing: 'ease-out' });
+    },
+    burst() {
+      if (reduce) return;
+      tween(700, k => { burst.setAttribute('opacity', (.9 * (1 - k)).toFixed(2)); burst.setAttribute('transform', `translate(160 180) scale(${.7 + .5 * eo(k)}) translate(-160 -180)`); });
+    }
+  };
+  api.setGlow(70);
+  return api;
+}
+const titleOf = vals => {
+  const ranked = PILLARS.map((p, i) => ({ p, v: vals[i] })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+  if (!ranked.length) return 'An unformed seed';
+  if (ranked.length === 1) return `The ${ranked[0].p.adj} Seed`;
+  return `The ${ranked[0].p.adj} ${ranked[1].p.noun}`;
+};
+
+/* hero Atman: tap to cycle looks */
+const hero = mkAtman($('#heroAtman'));
+const LOOKS = [[0, 2], [1, 3], [2, 4], [3, 0], [4, 1], [0, 3], [1, 2]];
+let look = 0;
+function applyLook(i) {
+  const pair = LOOKS[i % LOOKS.length];
+  hero.accOnly(pair.map(n => PILLARS[n].k));
+  const v = PILLARS.map((_, n) => n === pair[0] ? 2 : n === pair[1] ? 1 : 0);
+  $('#heroTitle').textContent = '// today: ' + titleOf(v).toLowerCase();
+}
+applyLook(0);
+const heroEl = $('#heroAtman');
+heroEl.setAttribute('tabindex', '0');
+heroEl.addEventListener('click', () => { look++; applyLook(look); hero.hop(); hero.burst(); });
+heroEl.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); heroEl.dispatchEvent(new Event('click')); } });
+
+/* streak vs consistency */
+const days = Array(30).fill(0);
+const dotsEl = $('#dots');
+const dotBtns = days.map((_, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'dot'; b.dataset.s = '0'; b.style.setProperty('--n', i);
+  b.addEventListener('click', () => cycleDay(i));
+  dotsEl.appendChild(b); return b;
+});
+let shownStreak = 30, shownCons = 100;
+const NAMES = ['done', 'missed', 'a Rest Day'];
+function numTo(el, from, to) { tween(380, k => el.textContent = Math.round(from + (to - from) * eo(k))); }
+function cycleDay(i) {
+  const rest = days.filter(d => d === 2).length;
+  let nxt = (days[i] + 1) % 3;
+  if (nxt === 2 && rest >= 3) nxt = 0;
+  days[i] = nxt; dotBtns[i].dataset.s = String(nxt);
+  refreshMonth(true);
+}
+function refreshMonth(animate) {
+  dotBtns.forEach((b, i) => b.setAttribute('aria-label', `Day ${i + 1}: ${NAMES[days[i]]}. Tap to change.`));
+  let streak = 0; for (let i = 29; i >= 0 && days[i] === 0; i--) streak++;
+  const rest = days.filter(d => d === 2).length, done = days.filter(d => d === 0).length, denom = 30 - rest;
+  const cons = denom ? Math.round(done / denom * 100) : 100;
+  const missed = days.filter(d => d === 1).length;
+  if (animate) { numTo($('#streakNum'), shownStreak, streak); numTo($('#consNum'), shownCons, cons); }
+  else { $('#streakNum').textContent = streak; $('#consNum').textContent = cons; }
+  shownStreak = streak; shownCons = cons;
+  $('#restUsed').textContent = `Rest Days used: ${rest} of 3`;
+  $('#streakNote').textContent = missed + rest === 0 ? 'Perfect so far. Tap a day below to miss it.'
+    : streak === 0 ? 'Yesterday was a miss, so the streak is gone. Back to day one.' : `Everything before the last slip is forgotten. Streak: ${streak} days.`;
+  $('#consNote').textContent = missed + rest === 0 ? "Last 30 days. Rest Days don't count against you."
+    : `${done} of ${denom} counted days done${rest ? `, ${rest} Rest Day${rest > 1 ? 's' : ''} excused` : ''}. Still strong.`;
+  const st = $('#stamp'), show = missed + rest > 0 && streak < 30;
+  if (show && !st.classList.contains('show')) { st.classList.add('show'); st.classList.remove('shake'); void st.offsetWidth; setTimeout(() => st.classList.add('shake'), 230); }
+  if (!show) st.classList.remove('show', 'shake');
+}
+refreshMonth(false);
+
+/* practices playground */
+const PRACTICES = [
+  { p: 0, t: ['Meditate for 10 minutes', 'Meditate for 3 minutes', 'Take 3 slow breaths'] },
+  { p: 1, t: ['Work out for an hour', '15-minute home workout', 'Stretch for 2 minutes'] },
+  { p: 2, t: ['Study coding for an hour', 'Finish one lesson', 'Read one page of docs'] },
+  { p: 3, t: ['Call a friend', 'Send a voice note', 'Send one kind message'] },
+  { p: 4, t: ['Tidy your room', 'Make the bed', 'Clear one surface'] }
+];
+const W = [1, .7, .4], DEPTH = ['Full', 'Mini', 'Micro'];
+const play = mkAtman($('#playAtman'));
+let depth = 0, resting = false, done = PRACTICES.map(() => null);
+const vals = () => PILLARS.map((_, i) => done.reduce((s, d, n) => s + (d !== null && PRACTICES[n].p === i ? W[d] : 0), 0));
+const listEl = $('#list');
+const cardEls = PRACTICES.map((pr, i) => {
+  const P = PILLARS[pr.p], b = document.createElement('button');
+  b.type = 'button'; b.className = 'card'; b.setAttribute('role', 'checkbox'); b.setAttribute('aria-checked', 'false');
+  b.innerHTML = `<div class="badge" style="background:${P.color}">${ico(P.icon, iconCol(P), 24)}</div>
+    <div><div class="t"></div><div class="s"><i style="background:${P.color}"></i><span></span></div></div>
+    <span class="ck"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 14.5l4.5 4.5 9.5-10.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  b.addEventListener('click', () => toggle(i));
+  listEl.appendChild(b); return b;
+});
+function paintCards() {
+  cardEls.forEach((b, i) => {
+    const P = PILLARS[PRACTICES[i].p], d = done[i];
+    $('.t', b).textContent = PRACTICES[i].t[d !== null ? d : depth];
+    $('.s span', b).textContent = d !== null ? `${P.n} · ${DEPTH[d]} counted` : P.n;
+    b.setAttribute('aria-checked', d !== null ? 'true' : 'false');
+  });
+}
+const say = t => { $('#status').textContent = t; };
+function refreshPlay() {
+  const v = vals(), total = v.reduce((a, b) => a + b, 0), n = done.filter(d => d !== null).length;
+  const g = Math.min(100, 40 + Math.round(total * 12));
+  $('#glow').textContent = g; $('#count').textContent = n;
+  $('#title').textContent = titleOf(v);
+  play.setGlow(g);
+  play.accOnly(PILLARS.filter((_, i) => v[i] > 0).map(p => p.k));
+  $('#mirror').disabled = total === 0;
+  drawRadar(v); paintCards();
+}
+function toggle(i) {
+  if (done[i] !== null) { done[i] = null; refreshPlay(); say('Undone. Nothing is lost, you can do it again anytime.'); return; }
+  const P = PILLARS[PRACTICES[i].p];
+  if (resting) { resting = false; play.rest(false); $('#skip').textContent = 'Skip today'; }
+  const thisDepth = depth;
+  const land = () => {
+    done[i] = thisDepth; refreshPlay(); play.hop();
+    const n = done.filter(d => d !== null).length;
+    say(n === PRACTICES.length ? 'Every pillar got some light today.' : `${P.n} fed. Your Atman feels ${P.quality}.`);
+  };
+  if (reduce) { land(); return; }
+  const a = $('.ck', cardEls[i]).getBoundingClientRect(), b = $('#playAtman').getBoundingClientRect();
+  const orb = document.createElement('div'); orb.className = 'orb'; orb.style.background = P.color; document.body.appendChild(orb);
+  const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, x1 = b.left + b.width / 2, y1 = b.top + b.height * .55;
+  orb.animate([
+    { transform: `translate(${x0}px,${y0}px) scale(1)` },
+    { transform: `translate(${(x0 + x1) / 2}px,${Math.min(y0, y1) - 70}px) scale(1.3)`, offset: .5 },
+    { transform: `translate(${x1}px,${y1}px) scale(.4)` }
+  ], { duration: 650, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' }).onfinish = () => { orb.remove(); land(); };
+}
+$$('#depth button').forEach(b => b.addEventListener('click', () => {
+  depth = +b.dataset.d; $$('#depth button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); paintCards();
+  say(depth === 0 ? 'Full effort today.' : depth === 1 ? 'A mini version still counts. Good call.' : 'A micro version keeps the habit alive.');
+}));
+$('#skip').addEventListener('click', () => {
+  resting = !resting; play.rest(resting);
+  $('#skip').textContent = resting ? 'Wake the Atman' : 'Skip today';
+  say(resting ? 'Your Sadhana is a lifelong path, not a race. Your spirit is resting today.' : 'Welcome back. Nothing was lost.');
+});
+$('#reset').addEventListener('click', () => {
+  done = PRACTICES.map(() => null); resting = false; play.rest(false); $('#skip').textContent = 'Skip today';
+  $('#scrollTxt').textContent = 'Tick a few practices, then read what your week says about you.';
+  refreshPlay(); say('Your Atman is waiting for its first spark.');
+});
+
+/* radar */
+const CX = 150, CY = 140, R = 96;
+const ang = i => (-90 + i * 72) * Math.PI / 180;
+const pt = (i, r) => [CX + Math.cos(ang(i)) * r, CY + Math.sin(ang(i)) * r];
+const radar = $('#radar');
+let rShown = [0, 0, 0, 0, 0];
+radar.innerHTML = [.33, .66, 1].map(f => `<polygon points="${PILLARS.map((_, i) => pt(i, R * f).map(n => n.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="#121212" stroke-opacity="${f === 1 ? .55 : .2}" stroke-width="${f === 1 ? 2.5 : 1.5}"/>`).join('')
+  + PILLARS.map((_, i) => { const [x, y] = pt(i, R); return `<line x1="${CX}" y1="${CY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#121212" stroke-opacity=".2" stroke-width="1.5"/>`; }).join('')
+  + `<polygon id="rpoly" fill="#e8442a" fill-opacity=".2" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><g id="rdots"></g>`
+  + PILLARS.map((p, i) => { const [x, y] = pt(i, R + 26); return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${x < CX - 8 ? 'end' : x > CX + 8 ? 'start' : 'middle'}" font-family="Cousine,monospace" font-weight="700" font-size="13" fill="#121212">${p.n}</text>`; }).join('');
+const rdots = $('#rdots', radar);
+rdots.innerHTML = PILLARS.map(p => `<circle r="6" fill="${p.color}" stroke="#121212" stroke-width="2.5"/>`).join('');
+function paintRadar(vs) {
+  const rs = vs.map(v => R * Math.max(.07, Math.min(1, v)));
+  $('#rpoly', radar).setAttribute('points', rs.map((r, i) => pt(i, r).map(n => n.toFixed(1)).join(',')).join(' '));
+  $$('circle', rdots).forEach((c, i) => { const [x, y] = pt(i, rs[i]); c.setAttribute('cx', x.toFixed(1)); c.setAttribute('cy', y.toFixed(1)); });
+}
+function drawRadar(v) {
+  const from = rShown.slice(); rShown = v.slice();
+  tween(450, k => paintRadar(from.map((f, i) => f + (v[i] - f) * eo(k))));
+}
+$('#legend').innerHTML = PILLARS.map(p => `<li><i style="background:${p.color}"></i>${p.n}: ${p.quality}</li>`).join('');
+
+/* sunday mirror (rule-based demo) */
+let typing = 0;
+$('#mirror').addEventListener('click', () => {
+  const v = vals(), ranked = PILLARS.map((p, i) => ({ p, v: v[i] })).sort((a, b) => b.v - a.v);
+  const top = ranked.filter(x => x.v > 0).slice(0, 2), quiet = ranked.filter(x => x.v === 0);
+  let s;
+  if (!top.length) s = 'Nothing logged yet. Your Atman is resting, and that is perfectly okay.';
+  else {
+    s = top.length === 1
+      ? `This week, your Sadhana was rich in ${top[0].p.n}. Your inner self grew ${top[0].p.quality}.`
+      : `This week, your Sadhana was rich in ${top[0].p.n} and ${top[1].p.n}. Your inner self grew ${top[0].p.quality} and ${top[1].p.quality}.`;
+    s += quiet.length ? ` ${quiet[0].p.n} took a quiet backseat, and that is perfectly okay.` : ' Every pillar got some light.';
+    s += ' You are building a balanced, patient soul.';
+  }
+  const el = $('#scrollTxt'), my = ++typing;
+  if (reduce) { el.textContent = s; return; }
+  el.textContent = '';
+  tween(Math.min(2600, s.length * 26), k => { if (my === typing) el.textContent = s.slice(0, Math.round(s.length * k)); });
+});
+refreshPlay();
+
+/* follow: cursor clicks the button once */
+(function () {
+  const box = $('#followBox'), btn = $('#followBtn'), cur = $('#cursor');
+  if (reduce || !hasIO) return;
+  const o = new IntersectionObserver(es => {
+    if (!es[0].isIntersecting) return; o.disconnect();
+    setTimeout(() => {
+      const bb = box.getBoundingClientRect(), r = btn.getBoundingClientRect();
+      const tx = r.left - bb.left + r.width * .72, ty = r.top - bb.top + r.height * .55, sx = tx + 160, sy = ty + 150;
+      tween(800, k => { const u = eo(k); cur.style.opacity = String(clamp(k * 6)); cur.style.transform = `translate(${sx + (tx - sx) * u}px,${sy + (ty - sy) * u}px)`; }, () => {
+        btn.style.transform = 'translate(2px,2px)'; btn.style.boxShadow = '2px 2px 0 rgba(240,236,227,.4)';
+        setTimeout(() => { btn.style.transform = ''; btn.style.boxShadow = ''; tween(500, k => cur.style.opacity = String(1 - k)); }, 160);
+      });
+    }, 500);
+  }, { threshold: .6 });
+  o.observe(box);
+})();
+
+observe('.rv, .hl, .month, .step');
+})();
+</script>
+</body>
+</html>
